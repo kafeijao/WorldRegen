@@ -1,0 +1,42 @@
+name: WorldRegen
+main: com.kafeijao.worldregen.WorldRegen
+version: 0.0.1
+
+depend: [WorldEdit, WorldGuard, Multiverse-Core]
+
+description: My first testing plugin, probably multipurpose n stuff.
+author: Kafeijao
+website: kafeijao.com
+
+commands:
+    rain:
+        description: Makes RAIN :D
+        usage: /rain
+        permission: KafeijaoPlugin.rain
+        permission-message: You don't have KafeijaoPlugin.rain
+
+    norain:
+        description: Makes SUN :D
+        usage: /norain
+        permission: KafeijaoPlugin.rain
+        permission-message: You don't have KafeijaoPlugin.norain
+        
+    lightning:
+        description: LIGHTNING the shit out of someone
+        usage: /lightning [player]
+        aliases: l
+        permission: KafeijaoPlugin.lightning
+        permission-message: You don't have KafeijaoPlugin.lightning
+        
+permissions:
+    KafeijaoPlugin.rain:
+        description: ALLOW MAKE RAIN
+        default: true
+        
+    KafeijaoPlugin.norain:
+        description: ALLOW UNMAKE RAIN
+        default: true
+        
+    KafeijaoPlugin.lightning:
+        description: ALLOW LIGHTNING THE SHIT OUT OF SOMEONE
+        default: true
