@@ -1,5 +1,13 @@
 package com.kafeijao.worldregen;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -7,6 +15,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitTask;
+
+import com.sk89q.worldedit.LocalWorld;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.thoughtworks.xstream.XStream;
 
 public class WorldRegenCommandExecutor implements CommandExecutor{
 
@@ -60,9 +73,67 @@ public class WorldRegenCommandExecutor implements CommandExecutor{
 			sender.sendMessage("Nome do Player Inválido ou está offline defeciente!");
 			return false;
 		}
+		
+		//ImportXML Command
+		if (cmd.getName().equalsIgnoreCase("importXML")) {
+			sender.sendMessage("Command ISSUED. Args: " + args.length);
+			if (args.length > 1 && args.length < 3) {
+							
+				String fileName = args[0];
+				
+				String date = args[1];
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				
+				try {
+					dateFormat.parse(date);
+				} catch (ParseException e1) {
+					sender.sendMessage("Date must be in the format 'yyyy-mm-dd', eg: 2013-08-14");
+					return false;
+				}
+				
+				File file;
+				
+				try {
+					file = new File(plugin.getDataFolder().getCanonicalPath()
+							+ File.separatorChar + "Plots_Backup"
+							+ File.separatorChar + date
+							+ File.separatorChar + fileName + ".schematic");
+					
+					sender.sendMessage(file.getAbsolutePath());
+					
+					if (!file.exists()) {
+						sender.sendMessage("The file specified doesn't exist!");
+						return false;
+					}
+
+				} catch (IOException e) {
+					e.printStackTrace();
+					return false;
+				}
+				
+				WorldEditPlugin wePlugin = (WorldEditPlugin) plugin.getServer().getPluginManager().getPlugin("WorldEdit");
+				List<LocalWorld> worldList = wePlugin.getServerInterface().getWorlds();
+		        LocalWorld world2 = null;
+		        for (LocalWorld lw : worldList) {
+		        	if (lw.getName().equals("world2")) {
+		        		world2 = lw;
+		        	}
+		        }
+				
+		        
+				
+		
+				
+			} else {
+				sender.sendMessage("Invalid Arguments Number...");
+				return false;
+			}
+			
 			
 		
+			
 		
+		}
 		
 		return false;
 	}

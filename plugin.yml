@@ -12,31 +12,41 @@ commands:
     rain:
         description: Makes RAIN :D
         usage: /rain
-        permission: KafeijaoPlugin.rain
-        permission-message: You don't have KafeijaoPlugin.rain
+        permission: WorldRegen.rain
+        permission-message: You don't have WorldRegen.rain
 
     norain:
         description: Makes SUN :D
         usage: /norain
-        permission: KafeijaoPlugin.rain
-        permission-message: You don't have KafeijaoPlugin.norain
+        permission: WorldRegen.rain
+        permission-message: You don't have WorldRegen.norain
         
     lightning:
         description: LIGHTNING the shit out of someone
         usage: /lightning [player]
         aliases: l
-        permission: KafeijaoPlugin.lightning
-        permission-message: You don't have KafeijaoPlugin.lightning
+        permission: WorldRegen.lightning
+        permission-message: You don't have WorldRegen.lightning
+        
+    importXML:
+        description: Import backups of Plots.
+        usage: /importXML [regionName] [yyyy-mm-dd]
+        permission: WorldRegen.importXML
+        permission-message: You don't have permission to execute the command.
         
 permissions:
-    KafeijaoPlugin.rain:
+    WorldRegen.rain:
         description: ALLOW MAKE RAIN
         default: true
         
-    KafeijaoPlugin.norain:
+    WorldRegen.norain:
         description: ALLOW UNMAKE RAIN
         default: true
         
-    KafeijaoPlugin.lightning:
+    WorldRegen.lightning:
         description: ALLOW LIGHTNING THE SHIT OUT OF SOMEONE
         default: true
+    
+    WorldRegen.importXML:
+        description: Allow import backups of Plots
+        default: false

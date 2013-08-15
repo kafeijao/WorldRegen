@@ -26,6 +26,7 @@ public final class WorldRegen extends JavaPlugin{
 		getCommand("rain").setExecutor(new WorldRegenCommandExecutor(this));
 		getCommand("norain").setExecutor(new WorldRegenCommandExecutor(this));
 		getCommand("l").setExecutor(new WorldRegenCommandExecutor(this));
+		getCommand("importXML").setExecutor(new WorldRegenCommandExecutor(this));
 		
 		//Configs
 		saveDefaultConfig();
