@@ -3,8 +3,6 @@ package com.kafeijao.worldregen;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,11 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.sk89q.worldedit.BlockVector;
@@ -58,7 +54,7 @@ public class RegenWorld2Task extends BukkitRunnable {
     private final int SMOOTH_ITERATIONS = 5;
     
     private MultiverseCore mvPlugin;
-    private WorldGuardPlugin wgPlugin;	
+    private WorldGuardPlugin wgPlugin;
     private WorldEditPlugin wePlugin;
     
     private World world;
