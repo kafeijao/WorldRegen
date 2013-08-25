@@ -283,7 +283,7 @@ public RegenWorld2Task(JavaPlugin plugin) {
 
 		
 		
-		//Generate chuncks that are in the region
+		//Generate chuncks that are in the outter region
 		int radiusChuncks = (radiusOutter.getBlockX() / 16) + 2;
 
 		plugin.getLogger().info("RAIO DE BLOCOS: " + radiusOutter.getBlockX() + "RAIO DE CHUNCKS: " + radiusChuncks + ", x start: " + (-radiusChuncks) + ", acaba quando for igual a: " + (radiusChuncks*2));
