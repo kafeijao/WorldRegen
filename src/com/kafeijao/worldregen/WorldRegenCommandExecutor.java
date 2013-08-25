@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -15,11 +13,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitTask;
-
-import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.thoughtworks.xstream.XStream;
 
 public class WorldRegenCommandExecutor implements CommandExecutor{
 
@@ -111,17 +104,11 @@ public class WorldRegenCommandExecutor implements CommandExecutor{
 					return false;
 				}
 				
-				WorldEditPlugin wePlugin = (WorldEditPlugin) plugin.getServer().getPluginManager().getPlugin("WorldEdit");
-				List<LocalWorld> worldList = wePlugin.getServerInterface().getWorlds();
-		        LocalWorld world2 = null;
-		        for (LocalWorld lw : worldList) {
-		        	if (lw.getName().equals("world2")) {
-		        		world2 = lw;
-		        	}
-		        }
+				
+				@SuppressWarnings("unused")
+				BukkitTask task2 = new RegenWorld2Task(plugin, file).runTask(plugin);
 				
 		        
-				
 		
 				
 			} else {

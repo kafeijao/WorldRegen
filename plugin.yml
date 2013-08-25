@@ -49,4 +49,4 @@ permissions:
     
     WorldRegen.importXML:
         description: Allow import backups of Plots
-        default: false
+        default: true

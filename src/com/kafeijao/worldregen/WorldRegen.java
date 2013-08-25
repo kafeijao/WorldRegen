@@ -16,7 +16,7 @@ public final class WorldRegen extends JavaPlugin{
 		getLogger().info("O ARTUR NAO E SEXY!!!");
 		
 		//Add external jars
-		JarUtils.addExternalClassPaths(this);
+		//JarUtils.addExternalClassPaths(this);
 		
 		//Registar Eventos
 		getServer().getPluginManager().registerEvents(new LoginListener(), this);
