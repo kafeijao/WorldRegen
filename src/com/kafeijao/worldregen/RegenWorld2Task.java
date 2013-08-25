@@ -120,12 +120,17 @@ public RegenWorld2Task(JavaPlugin plugin) {
     		
 	    	RegionManager wgRegionManager = wgPlugin.getRegionManager(world);
 	    	
+	    	//Get all regions from worldguard and atribute to the map wgRegionMap
 	    	Map<String, ProtectedRegion> wgRegionMap = wgRegionManager.getRegions();
 	    	
+	    	//Cicle the regions map being able to get each region name(key) and protectionRegion(value)
 	    	for (Map.Entry<String, ProtectedRegion> region : wgRegionMap.entrySet()) {
+	    		//If the region name starts with PLOT_PREFIX
 	    		if (region.getKey().startsWith(PLOT_PREFIX)) {
 	    			ProtectedRegion protectedRegion = region.getValue();
+	    			//Save the region as a schematic AND get the CuboidClipboard of that region
 	    			CuboidClipboard cc = saveRegionToSchematic(protectedRegion);
+	    			//Add the region name and the clipboard we created from the region to a HashMap
 	    			clipBoardsMap.put(protectedRegion.getId(), cc);
 	    		}
 	    	}
@@ -133,24 +138,30 @@ public RegenWorld2Task(JavaPlugin plugin) {
 	    	
 	    	plugin.getLogger().info("World2 is about to Regenerate...");
 	    	
+	    	//Delete the previous World, and regen a new world with a random seed
 	    	mvPlugin.getMVWorldManager().regenWorld(world.getName(), true, true, null);
 	    	
 	    	plugin.getLogger().info("World2 has Regenerated...");
 	    	
 	    	plugin.getLogger().info("Starting to place regions!");
 	    	
+	    	//Cicle the map we creted that has the region name and the region Clipboards
 	    	for (Map.Entry<String, CuboidClipboard> cc : clipBoardsMap.entrySet()) {
 	    		
+	    		//Create a temporary edit session to point to the localworld
 	    		EditSession session = new EditSession(localWorld, Integer.MAX_VALUE);
 	    		
+	    		//Get the origin of the region so we can apply later the terrain modifications with a certain radius
 	    		BlockVector origin = getRegionOrigin(cc.getKey());
 	    		
+	    		//Create a temporary clipboard point to the hashmap cliboard value
 	    		CuboidClipboard clipBoard = cc.getValue();
 	    		
-	    		
+	    		//Prepare the terrain to receive the region restore (smoothig, foundations, etc...)
 	    		preparePlotTerrain(wgRegionManager.getRegion(cc.getKey()));
 	    		
 	    		try {
+	    			//Attempt to paste the clibpoard to place it was originally
 					clipBoard.paste(session, origin, false);
 					plugin.getLogger().info("The region {" + cc.getKey() + "} was successfully Restored!");
 				} catch (MaxChangedBlocksException e) {
