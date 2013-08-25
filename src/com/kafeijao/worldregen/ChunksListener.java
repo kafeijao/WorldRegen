@@ -37,6 +37,7 @@ public class ChunksListener implements Listener {
 
 	}
 
+	//Reload Chunks list
 	private void reloadRegions() {
 		
 		this.wgPlugin = (WorldGuardPlugin) plugin.getServer().getPluginManager().getPlugin("WorldGuard");
