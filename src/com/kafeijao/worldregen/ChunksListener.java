@@ -25,6 +25,7 @@ public class ChunksListener implements Listener {
 	private JavaPlugin plugin;
 	private World world;
 	private WorldGuardPlugin wgPlugin;
+	private int regionsHashCode = 0;
 	private List<Chunk> chunks = new ArrayList<Chunk>();
 
 	public ChunksListener(JavaPlugin plugin, String worldName) {
@@ -44,6 +45,8 @@ public class ChunksListener implements Listener {
 
 		RegionManager wgRegionManager = wgPlugin.getRegionManager(world);
 		Map<String, ProtectedRegion> wgRegionMap = wgRegionManager.getRegions();
+		
+		this.regionsHashCode = wgRegionMap.hashCode();
 
 		for (Map.Entry<String, ProtectedRegion> regionInfo : wgRegionMap.entrySet()) {
 
@@ -70,6 +73,14 @@ public class ChunksListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChunkUnload(ChunkUnloadEvent event) {
+		
+		RegionManager wgRegionManager = wgPlugin.getRegionManager(world);
+		Map<String, ProtectedRegion> wgRegionMap = wgRegionManager.getRegions();
+		
+		if (wgRegionMap.hashCode() != this.regionsHashCode) {
+			reloadRegions();
+		}
+		
 		Chunk chunk = event.getChunk();
 		
 		if (chunks.contains(chunk)) {
