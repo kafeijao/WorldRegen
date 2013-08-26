@@ -100,6 +100,8 @@ public class ChunksListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onWorldLoad(WorldLoadEvent event) {
 
+		plugin.getLogger().info("World Nomes: " + event.getWorld().getName().toString() + " - " + world.getName());
+		
 		if (event.getWorld().getName().equals(world.getName())) {
 
 			for (Chunk chunk : chunks) {
