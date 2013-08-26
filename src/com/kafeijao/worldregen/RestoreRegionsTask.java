@@ -3,6 +3,7 @@ package com.kafeijao.worldregen;
 import java.util.Map;
 
 import org.bukkit.World;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -31,7 +32,7 @@ public class RestoreRegionsTask extends BukkitRunnable{
     private final int INNER_CIRCLE_RADIUS = 13;
     private final int OUTTER_CIRCLE_RADIUS = 17;
     private final int SMOOTH_REGION_OFFSET = 30;
-    private final int SMOOTH_ITERATIONS = 15;
+    private final int SMOOTH_ITERATIONS = 5;
 	
 	private JavaPlugin plugin;
 	
@@ -39,16 +40,17 @@ public class RestoreRegionsTask extends BukkitRunnable{
 	private LocalWorld localWorld;
 	private RegionManager wgRegionManager;
 	private World world;
-	private WorldGuardPlugin wgPlugin = (WorldGuardPlugin) plugin.getServer().getPluginManager().getPlugin("WorldGuard");
+	private WorldGuardPlugin wgPlugin;
 	
 	
-	public RestoreRegionsTask(JavaPlugin plugin, Map<String, CuboidClipboard> clipBoardsMap, LocalWorld localWorld, RegionManager wgRegionManager, World world) {
+	public RestoreRegionsTask(JavaPlugin plugin, Map<String, CuboidClipboard> clipBoardsMap, LocalWorld localWorld, RegionManager wgRegionManager, World world, WorldGuardPlugin wgPlugin) {
 		
 		this.plugin = plugin;
 		this.clipBoardsMap = clipBoardsMap;
 		this.localWorld = localWorld;
 		this.wgRegionManager = wgRegionManager;
 		this.world = world;
+		this.wgPlugin = wgPlugin;
 		
 	}
 	
@@ -86,6 +88,10 @@ public class RestoreRegionsTask extends BukkitRunnable{
     	}
     	
     	plugin.getLogger().info("All regions were placed!");
+    	
+    	//Unregister the listener that disallow the players to login
+    	PlayerLoginEvent.getHandlerList().unregister(plugin);
+
 		
 	}
 	

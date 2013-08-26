@@ -19,7 +19,6 @@ public final class WorldRegen extends JavaPlugin{
 		//JarUtils.addExternalClassPaths(this);
 		
 		//Registar Eventos
-		getServer().getPluginManager().registerEvents(new LoginListener(), this);
 		getServer().getPluginManager().registerEvents(new JoinListener(), this);
 		//getServer().getPluginManager().registerEvents(new ChunksListener(this, "world2"), this);
 		

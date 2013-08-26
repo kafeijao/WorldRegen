@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -96,9 +97,21 @@ public RegenWorld2Task(JavaPlugin plugin) {
  
     @Override
 	public void run() {
+    
     	
     	if (this.fileImport == null) {
+    		
+    		//Kick all players and tell them the world2 is regenerating
+        	
+        	for (Player player : plugin.getServer().getOnlinePlayers()) {
+        		player.kickPlayer(world.getName() + " is Regenerating, come back in 5 mins~...");
+        	}
+        	
+        	//Register an listener that disllow players to login 
+        	plugin.getServer().getPluginManager().registerEvents(new DisableJoinEvent(), plugin);
     	
+        	
+        	
     		Map<String, CuboidClipboard> clipBoardsMap = new HashMap<String, CuboidClipboard>();
     		
 	    	RegionManager wgRegionManager = wgPlugin.getRegionManager(world);
@@ -137,7 +150,7 @@ public RegenWorld2Task(JavaPlugin plugin) {
 	        
 	    	plugin.getLogger().info("World Loaded...");
 	    	
-	    	RestoreRegionsTask task = new RestoreRegionsTask(plugin, clipBoardsMap, localWorld, wgRegionManager, world);
+	    	RestoreRegionsTask task = new RestoreRegionsTask(plugin, clipBoardsMap, localWorld, wgRegionManager, world, wgPlugin);
 	    	
 	    	plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, 300);
 	    	
